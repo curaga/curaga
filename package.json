@@ -12,6 +12,8 @@
     "prosemirror-schema-basic": "^1.1.2",
     "prosemirror-schema-list": "^1.1.2",
     "prosemirror-view": "^1.14.7",
+    "svelte": "^3.22.2",
+    "svelte-loader": "^2.13.6",
     "turbolinks": "^5.2.0"
   },
   "version": "0.1.0",
