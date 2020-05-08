@@ -1,0 +1,42 @@
+<script>
+  import { onMount, onDestroy } from 'svelte';
+  import { EditorState } from 'prosemirror-state';
+  import { EditorView } from 'prosemirror-view';
+  import { state } from 'prosemirror/state';
+  import 'prosemirror-view/style/prosemirror.css';
+
+  export let doc;
+  $: {
+    doc = JSON.stringify(editorState.toJSON());
+  }
+
+  let editorState = state;
+
+  const jsonDoc = JSON.parse(doc);
+  editorState.doc = editorState.schema.nodeFromJSON(jsonDoc.doc);
+
+  onMount(() => {
+    let view = new EditorView(document.getElementById('prosemirror'), {
+      state: editorState,
+      dispatchTransaction: (transaction) => {
+        const state = view.state.apply(transaction)
+        editorState = state;
+        view.updateState(state);
+      },
+    });
+  })
+
+  onDestroy(() => {
+    view.destroy()
+  })
+</script>
+
+<style>
+
+</style>
+
+<div id="prosemirror"></div>
+
+<input type="hidden" value="{doc}">
+
+{doc}
