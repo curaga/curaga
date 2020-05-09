@@ -5,9 +5,6 @@
   import 'prosemirror-view/style/prosemirror.css';
 
   export let doc;
-  $: {
-    doc = JSON.stringify(editorState.toJSON());
-  }
 
   let editorState = state;
 
@@ -17,11 +14,7 @@
   onMount(() => {
     let view = new EditorView(document.getElementById('prosemirror'), {
       state: editorState,
-      dispatchTransaction: (transaction) => {
-        const state = view.state.apply(transaction)
-        editorState = state;
-        view.updateState(state);
-      },
+      editable: () => false,
     });
   })
 
@@ -31,5 +24,3 @@
 </script>
 
 <div id="prosemirror" />
-
-<input type="hidden" name="document[content]" value="{doc}">

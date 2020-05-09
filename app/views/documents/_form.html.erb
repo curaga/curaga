@@ -1,0 +1,9 @@
+<%= form_with(model: @document) do |f| %>
+  <%= f.text_field :title, placeholder: 'Title' %>
+
+  <div id="untitled-editor">
+    <%= f.hidden_field :content %>
+  </div>
+
+  <%= f.button %>
+<% end %>
