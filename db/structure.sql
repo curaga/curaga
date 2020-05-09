@@ -105,6 +105,37 @@ ALTER SEQUENCE public.friendly_id_slugs_id_seq OWNED BY public.friendly_id_slugs
 
 
 --
+-- Name: namespaces; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.namespaces (
+    id bigint NOT NULL,
+    slug character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: namespaces_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.namespaces_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: namespaces_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.namespaces_id_seq OWNED BY public.namespaces.id;
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -125,6 +156,13 @@ ALTER TABLE ONLY public.documents ALTER COLUMN id SET DEFAULT nextval('public.do
 --
 
 ALTER TABLE ONLY public.friendly_id_slugs ALTER COLUMN id SET DEFAULT nextval('public.friendly_id_slugs_id_seq'::regclass);
+
+
+--
+-- Name: namespaces id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.namespaces ALTER COLUMN id SET DEFAULT nextval('public.namespaces_id_seq'::regclass);
 
 
 --
@@ -149,6 +187,14 @@ ALTER TABLE ONLY public.documents
 
 ALTER TABLE ONLY public.friendly_id_slugs
     ADD CONSTRAINT friendly_id_slugs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: namespaces namespaces_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.namespaces
+    ADD CONSTRAINT namespaces_pkey PRIMARY KEY (id);
 
 
 --
@@ -181,6 +227,13 @@ CREATE INDEX index_friendly_id_slugs_on_sluggable_type_and_sluggable_id ON publi
 
 
 --
+-- Name: index_namespaces_on_slug; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_namespaces_on_slug ON public.namespaces USING btree (slug);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -188,6 +241,7 @@ SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
 ('20200508174125'),
-('20200509180305');
+('20200509180305'),
+('20200509180824');
 
 
