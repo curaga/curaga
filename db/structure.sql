@@ -48,7 +48,8 @@ CREATE TABLE public.documents (
     title text DEFAULT ''::text NOT NULL,
     content jsonb DEFAULT '"{\"doc\": {\"type\":\"doc\"}}"'::jsonb NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    namespaces_id bigint NOT NULL
 );
 
 
@@ -206,6 +207,13 @@ ALTER TABLE ONLY public.schema_migrations
 
 
 --
+-- Name: index_documents_on_namespaces_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_documents_on_namespaces_id ON public.documents USING btree (namespaces_id);
+
+
+--
 -- Name: index_friendly_id_slugs_on_slug_and_sluggable_type; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -234,6 +242,14 @@ CREATE UNIQUE INDEX index_namespaces_on_slug ON public.namespaces USING btree (s
 
 
 --
+-- Name: documents fk_rails_26699ee9ad; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.documents
+    ADD CONSTRAINT fk_rails_26699ee9ad FOREIGN KEY (namespaces_id) REFERENCES public.namespaces(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -242,6 +258,7 @@ SET search_path TO "$user", public;
 INSERT INTO "schema_migrations" (version) VALUES
 ('20200508174125'),
 ('20200509180305'),
-('20200509180824');
+('20200509180824'),
+('20200509182848');
 
 
