@@ -3,4 +3,6 @@ class Namespace < ApplicationRecord
   friendly_id :name, use: :slugged
 
   has_many :documents
+
+  belongs_to :user
 end

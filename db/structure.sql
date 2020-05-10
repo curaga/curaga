@@ -113,7 +113,8 @@ CREATE TABLE public.namespaces (
     id bigint NOT NULL,
     slug character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    user_id bigint NOT NULL
 );
 
 
@@ -291,6 +292,13 @@ CREATE UNIQUE INDEX index_namespaces_on_slug ON public.namespaces USING btree (s
 
 
 --
+-- Name: index_namespaces_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_namespaces_on_user_id ON public.namespaces USING btree (user_id);
+
+
+--
 -- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -313,6 +321,14 @@ ALTER TABLE ONLY public.documents
 
 
 --
+-- Name: namespaces fk_rails_ce681b043a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.namespaces
+    ADD CONSTRAINT fk_rails_ce681b043a FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -323,6 +339,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200509180305'),
 ('20200509180824'),
 ('20200509182848'),
-('20200509184343');
+('20200509184343'),
+('20200510031501');
 
 
