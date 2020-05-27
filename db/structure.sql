@@ -49,7 +49,7 @@ CREATE TABLE public.documents (
     content jsonb DEFAULT '"{\"doc\": {\"type\":\"doc\"}}"'::jsonb NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    namespaces_id bigint NOT NULL
+    namespace_id bigint NOT NULL
 );
 
 
@@ -257,10 +257,10 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: index_documents_on_namespaces_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_documents_on_namespace_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_documents_on_namespaces_id ON public.documents USING btree (namespaces_id);
+CREATE INDEX index_documents_on_namespace_id ON public.documents USING btree (namespace_id);
 
 
 --
@@ -317,7 +317,7 @@ CREATE UNIQUE INDEX index_users_on_username ON public.users USING btree (usernam
 --
 
 ALTER TABLE ONLY public.documents
-    ADD CONSTRAINT fk_rails_26699ee9ad FOREIGN KEY (namespaces_id) REFERENCES public.namespaces(id);
+    ADD CONSTRAINT fk_rails_26699ee9ad FOREIGN KEY (namespace_id) REFERENCES public.namespaces(id);
 
 
 --
@@ -340,6 +340,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200509180824'),
 ('20200509182848'),
 ('20200509184343'),
-('20200510031501');
+('20200510031501'),
+('20200527193801');
 
 
