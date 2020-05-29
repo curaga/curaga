@@ -1,11 +1,12 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :recoverable, :registerable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :rememberable, :validatable
 
-  has_many :namespaces
-
-  before_create :build_default_namespace
+  has_many :memberships, class_name: 'NamespaceMembership'
+  has_many :namespaces, through: :memberships
 
   def email_required?
     false
@@ -13,11 +14,5 @@ class User < ApplicationRecord
 
   def will_save_change_to_email?
     false
-  end
-
-  private
-
-  def build_default_namespace
-    namespaces.build(slug: username)
   end
 end

@@ -106,6 +106,39 @@ ALTER SEQUENCE public.friendly_id_slugs_id_seq OWNED BY public.friendly_id_slugs
 
 
 --
+-- Name: namespace_memberships; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.namespace_memberships (
+    id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    namespace_id bigint NOT NULL,
+    "default" boolean DEFAULT false NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: namespace_memberships_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.namespace_memberships_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: namespace_memberships_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.namespace_memberships_id_seq OWNED BY public.namespace_memberships.id;
+
+
+--
 -- Name: namespaces; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -113,8 +146,7 @@ CREATE TABLE public.namespaces (
     id bigint NOT NULL,
     slug character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL,
-    user_id bigint NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL
 );
 
 
@@ -195,6 +227,13 @@ ALTER TABLE ONLY public.friendly_id_slugs ALTER COLUMN id SET DEFAULT nextval('p
 
 
 --
+-- Name: namespace_memberships id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.namespace_memberships ALTER COLUMN id SET DEFAULT nextval('public.namespace_memberships_id_seq'::regclass);
+
+
+--
 -- Name: namespaces id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -230,6 +269,14 @@ ALTER TABLE ONLY public.documents
 
 ALTER TABLE ONLY public.friendly_id_slugs
     ADD CONSTRAINT friendly_id_slugs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: namespace_memberships namespace_memberships_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.namespace_memberships
+    ADD CONSTRAINT namespace_memberships_pkey PRIMARY KEY (id);
 
 
 --
@@ -285,17 +332,24 @@ CREATE INDEX index_friendly_id_slugs_on_sluggable_type_and_sluggable_id ON publi
 
 
 --
+-- Name: index_namespace_memberships_on_namespace_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_namespace_memberships_on_namespace_id ON public.namespace_memberships USING btree (namespace_id);
+
+
+--
+-- Name: index_namespace_memberships_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_namespace_memberships_on_user_id ON public.namespace_memberships USING btree (user_id);
+
+
+--
 -- Name: index_namespaces_on_slug; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_namespaces_on_slug ON public.namespaces USING btree (slug);
-
-
---
--- Name: index_namespaces_on_user_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_namespaces_on_user_id ON public.namespaces USING btree (user_id);
 
 
 --
@@ -321,11 +375,19 @@ ALTER TABLE ONLY public.documents
 
 
 --
--- Name: namespaces fk_rails_ce681b043a; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: namespace_memberships fk_rails_339ae31290; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.namespaces
-    ADD CONSTRAINT fk_rails_ce681b043a FOREIGN KEY (user_id) REFERENCES public.users(id);
+ALTER TABLE ONLY public.namespace_memberships
+    ADD CONSTRAINT fk_rails_339ae31290 FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
+-- Name: namespace_memberships fk_rails_5cf0a54bc6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.namespace_memberships
+    ADD CONSTRAINT fk_rails_5cf0a54bc6 FOREIGN KEY (namespace_id) REFERENCES public.namespaces(id);
 
 
 --
@@ -341,6 +403,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200509182848'),
 ('20200509184343'),
 ('20200510031501'),
-('20200527193801');
+('20200527193801'),
+('20200527195720');
 
 
