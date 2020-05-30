@@ -2,7 +2,7 @@
 
 class Namespace < ApplicationRecord
   extend FriendlyId
-  friendly_id :name, use: :slugged
+  friendly_id :slug, use: :slugged
 
   has_many :documents, dependent: :destroy
   has_many :memberships, class_name: 'NamespaceMembership', dependent: :destroy

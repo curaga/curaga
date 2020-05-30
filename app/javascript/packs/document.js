@@ -1,6 +1,9 @@
 import Document from '../document.svelte'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => loadDocument());
+document.addEventListener('turbolinks:load', () => loadDocument());
+
+function loadDocument() {
   const el = document.querySelector('#untitled-document');
 
   if(typeof(el) != 'undefined' && el != null) {
@@ -17,4 +20,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.untitledDoc = untitledDoc;
   }
-});
+}
