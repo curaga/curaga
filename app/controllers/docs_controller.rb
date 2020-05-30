@@ -1,5 +1,11 @@
-class DocumentsController < ApplicationController
-  before_action :set_document, only: %i[show edit update destroy]
+# frozen_string_literal: true
+
+class DocsController < ApplicationController
+  before_action :document, only: [:edit, :update, :destroy]
+
+  def index
+    @docs = current_user.documents
+  end
 
   def new
     @document = Document.new
@@ -10,19 +16,17 @@ class DocumentsController < ApplicationController
     @document.namespace = current_user.default_namespace
 
     if @document.save
-      redirect_to document_url(@document)
+      redirect_to namespace_doc_url(@document.namespace, @document)
     else
       render action: :new
     end
   end
 
-  def show; end
-
   def edit; end
 
   def update
     if @document.update(document_params)
-      redirect_to document_url(@document)
+      redirect_to namespace_doc_url(@document.namespace, @document)
     else
       render action: :edit
     end
@@ -39,7 +43,7 @@ class DocumentsController < ApplicationController
     params.require(:document).permit(:title, :content)
   end
 
-  def set_document
-    @document = Document.find(params[:id])
+  def document
+    @document = current_user.documents.find(params[:id])
   end
 end

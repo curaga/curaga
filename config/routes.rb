@@ -2,9 +2,12 @@ Rails.application.routes.draw do
   devise_for :users
   root to: 'static#index'
 
-  resources :documents, except: :new
+  scope path: '-' do
+    resources :docs, except: :show
+  end
 
-  get '/new-page', to: 'documents#new', as: :new_document
-
-  get '/@:id', to: 'namespaces#show', as: :namespace
+  get '@:slug', to: 'namespaces#show', as: :namespace
+  scope path: '@:slug', module: :namespaces do
+    resources :docs, controller: :docs, except: :index, as: :namespace_doc
+  end
 end

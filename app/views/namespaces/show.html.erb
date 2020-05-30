@@ -1,0 +1,7 @@
+<% @docs.each do |doc| %>
+  <div>
+    <%= link_to doc.title, doc_path(@namespace.slug, doc) %>
+
+    <div id="untitled-document" data-doc="<%= doc.content %>"></div>
+  </div>
+<% end %>
