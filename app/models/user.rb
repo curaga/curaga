@@ -5,8 +5,8 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :recoverable, :registerable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :rememberable, :validatable
 
-  has_many :documents, foreign_key: :owner_id
-  has_many :memberships, class_name: 'NamespaceMembership'
+  has_many :documents, foreign_key: :owner_id, inverse_of: :owner, dependent: :destroy
+  has_many :memberships, class_name: 'NamespaceMembership', dependent: :destroy
   has_many :namespaces, through: :memberships
 
   def default_namespace
