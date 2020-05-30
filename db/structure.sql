@@ -49,7 +49,8 @@ CREATE TABLE public.documents (
     content jsonb DEFAULT '"{\"doc\": {\"type\":\"doc\"}}"'::jsonb NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    namespace_id bigint NOT NULL
+    namespace_id bigint NOT NULL,
+    owner_id bigint NOT NULL
 );
 
 
@@ -391,6 +392,14 @@ ALTER TABLE ONLY public.namespace_memberships
 
 
 --
+-- Name: documents fk_rails_d57828d9bc; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.documents
+    ADD CONSTRAINT fk_rails_d57828d9bc FOREIGN KEY (owner_id) REFERENCES public.users(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -404,6 +413,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200509184343'),
 ('20200510031501'),
 ('20200527193801'),
-('20200527195720');
+('20200527195720'),
+('20200529210130');
 
 

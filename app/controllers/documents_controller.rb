@@ -6,7 +6,8 @@ class DocumentsController < ApplicationController
   end
 
   def create
-    @document = current_user.namespaces.first.documents.new(document_params)
+    @document = current_user.documents.new(document_params)
+    @document.namespace = current_user.default_namespace
 
     if @document.save
       redirect_to document_url(@document)
