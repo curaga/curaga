@@ -3,6 +3,8 @@
 require 'simplecov'
 SimpleCov.start 'rails' do
   enable_coverage :branch
+
+  add_group 'Services', 'app/services'
 end
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
