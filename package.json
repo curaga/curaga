@@ -14,6 +14,7 @@
     "prosemirror-view": "^1.14.7",
     "svelte": "^3.22.2",
     "svelte-loader": "^2.13.6",
+    "tailwindcss": "^1.4.6",
     "turbolinks": "^5.2.0"
   },
   "version": "0.1.0",
