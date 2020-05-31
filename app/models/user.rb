@@ -9,15 +9,22 @@ class User < ApplicationRecord
   has_many :memberships, class_name: 'NamespaceMembership', dependent: :destroy
   has_many :namespaces, through: :memberships
 
+  validates :email, presence: true, uniqueness: { case_sensitive: false }
+
+  validates :username, format: { with: /\A[a-zA-Z0-9_]*\z/, message: 'only allows alphanumeric characters and underscores' },
+                       presence: true,
+                       uniqueness: { case_sensitive: false }
+
   def default_namespace
     Users::DefaultNamespaceFinderService.new(self).execute
   end
 
-  def email_required?
-    false
-  end
+  ####
+  # Devise methods
+  ####
 
-  def will_save_change_to_email?
-    false
+  # Remember user by default (:rememberable)
+  def remember_me
+    true
   end
 end
