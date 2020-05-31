@@ -1,5 +1,7 @@
 import { EditorState } from 'prosemirror-state';
-import keymap from './keymap';
+import { keymap } from 'prosemirror-keymap';
+import { baseKeymap } from 'prosemirror-commands';
+import { buildKeymap } from './keymap';
 import schema from './schema';
 import inputRules from './rules';
 
@@ -7,6 +9,7 @@ export let state = EditorState.create({
   schema,
   plugins: [
     inputRules,
-    keymap,
+    keymap(buildKeymap(schema)),
+    keymap(baseKeymap),
   ],
 });

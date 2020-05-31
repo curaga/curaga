@@ -1,10 +1,19 @@
-import { baseKeymap, toggleMark } from 'prosemirror-commands';
-import { keymap } from 'prosemirror-keymap';
-import schema from './schema';
+import { toggleMark } from 'prosemirror-commands';
+import { splitListItem } from 'prosemirror-schema-list';
 
-let untitledKeymap = {
-  'Mod-b': toggleMark(schema.marks.strong),
-  'Mod-i': toggleMark(schema.marks.em),
-};
+export function buildKeymap(schema) {
+  let keys = {}, type;
 
-export default keymap({...baseKeymap, ...untitledKeymap});
+  function bind(key, cmd) {
+    keys[key] = cmd;
+  }
+
+  bind('Mod-b', toggleMark(schema.marks.strong));
+  bind('Mod-i', toggleMark(schema.marks.em));
+
+  if (type = schema.nodes.list_item) {
+    bind('Enter', splitListItem(type));
+  }
+
+  return keys;
+}
