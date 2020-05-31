@@ -23,4 +23,4 @@
   })
 </script>
 
-<div id="prosemirror" />
+<div id="prosemirror" class="document__body" />

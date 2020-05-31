@@ -30,6 +30,6 @@
   })
 </script>
 
-<div id="prosemirror" />
+<div id="prosemirror" class="document__body" />
 
 <input type="hidden" name="document[content]" value="{doc}">

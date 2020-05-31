@@ -1,0 +1,7 @@
+.btn {
+  @apply px-4 py-2 border rounded;
+
+  &--action {
+    @apply bg-blue-400 border-blue-400;
+  }
+}

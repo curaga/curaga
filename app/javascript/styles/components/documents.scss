@@ -1,0 +1,27 @@
+.document {
+  &__body {
+    // Paragraph & element spacing
+    p, pre, ol, ul {
+      @apply mb-4;
+    }
+
+    // Code blocks
+    pre {
+      @apply bg-black p-4 text-sm text-gray-200;
+    }
+
+    // Lists
+    ol {
+      @apply ml-8 list-decimal;
+    }
+
+    ul {
+      @apply ml-8 list-disc;
+    }
+  }
+
+  &__title {
+    @apply text-3xl mb-4;
+  }
+}
+

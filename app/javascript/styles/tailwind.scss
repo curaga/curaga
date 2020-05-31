@@ -1,5 +1,9 @@
 @import "tailwindcss/base";
+
 @import "tailwindcss/components";
+@import "./components/buttons";
+@import "./components/documents";
+
 @import "tailwindcss/utilities";
 
 .w-72 {
