@@ -26,6 +26,7 @@ gem 'jbuilder', '~> 2.7'
 # gem 'image_processing', '~> 1.2'
 
 gem 'devise', '~> 4.7.1'
+gem 'pundit', '~> 2.1'
 
 gem 'friendly_id', '~> 5.3'
 
