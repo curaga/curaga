@@ -1,7 +1,15 @@
 <div class="document">
-  <h1 class="document__title">
-    <%= @document.title %>
-  </h1>
+  <header>
+    <div class="float-right">
+      <% if policy(@document).update? %>
+        <%= link_to 'Edit', edit_document_path(@document), class: 'btn btn--action' %>
+      <% end %>
+    </div>
+
+    <h1 class="document__title">
+      <%= @document.title %>
+    </h1>
+  </header>
 
   <div id="untitled-document" data-doc="<%= @document.content %>">
   </div>

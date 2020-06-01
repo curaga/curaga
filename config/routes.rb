@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   scope path: '-' do
     devise_for :users
-    resources :docs, except: :show
+    resources :docs, except: :show, as: :documents
   end
 
   get '@:slug', to: 'namespaces#show', as: :namespace

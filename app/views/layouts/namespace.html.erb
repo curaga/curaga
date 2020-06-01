@@ -24,12 +24,6 @@
         </div>
 
         <div class="table-cell bg-gray-900 text-gray-200">
-          <% if current_user %>
-          <div class="p-6 text-xs text-right">
-            <%= link_to 'Log out', destroy_user_session_path, method: :delete, class: 'btn' %>
-          </div>
-          <% end %>
-
           <div class="document p-6">
             <%= yield %>
           </div>
