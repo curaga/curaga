@@ -28,6 +28,7 @@ gem 'jbuilder', '~> 2.7'
 gem 'devise', '~> 4.7.1'
 gem 'pundit', '~> 2.1'
 
+gem 'ancestry', '~> 3.0.7'
 gem 'friendly_id', '~> 5.3'
 
 # Reduces boot times through caching; required in config/boot.rb
