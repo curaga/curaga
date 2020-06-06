@@ -16,11 +16,7 @@
         <div class="table-cell bg-black text-gray-500 w-72 p-6">
           <h2 class="text-sm uppercase font-bold mb-2">Documents</h2>
 
-          <% @docs.each do |doc| %>
-            <div>
-              <%= link_to doc.title, namespace_doc_path(@namespace, doc), class: 'hover:text-white' %>
-            </div>
-          <% end %>
+          <%= document_tree_list_for(@namespace) %>
         </div>
 
         <div class="table-cell bg-gray-900 text-gray-200">

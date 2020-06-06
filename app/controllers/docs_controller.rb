@@ -4,7 +4,7 @@ class DocsController < ApplicationController
   before_action :document, only: [:edit, :update, :destroy]
 
   def index
-    @docs = current_user.documents
+    @docs = current_user.default_namespace.documents
   end
 
   def new
@@ -16,7 +16,7 @@ class DocsController < ApplicationController
     @document.namespace = current_user.default_namespace
 
     if @document.save
-      redirect_to namespace_doc_url(@document.namespace, @document)
+      redirect_to documents_url
     else
       render action: :new
     end
@@ -26,7 +26,7 @@ class DocsController < ApplicationController
 
   def update
     if @document.update(document_params)
-      redirect_to namespace_doc_url(@document.namespace, @document)
+      redirect_to documents_url
     else
       render action: :edit
     end
@@ -40,7 +40,7 @@ class DocsController < ApplicationController
   private
 
   def document_params
-    params.require(:document).permit(:title, :content)
+    params.require(:document).permit(:title, :content, :parent_id)
   end
 
   def document
