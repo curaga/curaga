@@ -50,7 +50,8 @@ CREATE TABLE public.documents (
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     namespace_id bigint NOT NULL,
-    owner_id bigint NOT NULL
+    owner_id bigint NOT NULL,
+    ancestry character varying DEFAULT ''::character varying NOT NULL
 );
 
 
@@ -305,6 +306,13 @@ ALTER TABLE ONLY public.users
 
 
 --
+-- Name: index_documents_on_ancestry; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_documents_on_ancestry ON public.documents USING btree (ancestry);
+
+
+--
 -- Name: index_documents_on_namespace_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -414,6 +422,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200510031501'),
 ('20200527193801'),
 ('20200527195720'),
-('20200529210130');
+('20200529210130'),
+('20200606173736');
 
 
