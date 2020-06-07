@@ -3,7 +3,9 @@
 
   <%= f.text_field :title, placeholder: 'Title', class: 'document__title w-full' %>
 
-  <%= f.select :parent_id, document_tree_options_array_for(@document.namespace) %>
+  <%= f.select :parent_id, document_tree_options_array_for(@document.namespace, @document) %>
+
+  <%= f.number_field :position %>
 
   <div id="untitled-editor">
     <%= f.hidden_field :content %>

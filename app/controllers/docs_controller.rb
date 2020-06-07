@@ -9,6 +9,7 @@ class DocsController < ApplicationController
 
   def new
     @document = Document.new
+    @document.namespace = current_user.default_namespace
   end
 
   def create
@@ -40,7 +41,7 @@ class DocsController < ApplicationController
   private
 
   def document_params
-    params.require(:document).permit(:title, :content, :parent_id)
+    params.require(:document).permit(:title, :content, :parent_id, :position)
   end
 
   def document

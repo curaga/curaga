@@ -51,7 +51,8 @@ CREATE TABLE public.documents (
     updated_at timestamp(6) without time zone NOT NULL,
     namespace_id bigint NOT NULL,
     owner_id bigint NOT NULL,
-    ancestry character varying DEFAULT ''::character varying NOT NULL
+    ancestry character varying,
+    "position" integer DEFAULT 1 NOT NULL
 );
 
 
@@ -423,6 +424,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200527193801'),
 ('20200527195720'),
 ('20200529210130'),
-('20200606173736');
+('20200606173736'),
+('20200607064953'),
+('20200607084037');
 
 

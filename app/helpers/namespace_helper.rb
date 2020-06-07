@@ -2,14 +2,14 @@
 
 module NamespaceHelper
   def document_tree_for(namespace)
-    Document.arrange(namespace: namespace)
+    Document.arrange(namespace: namespace, order: :position)
   end
 
   def document_tree_list_for(namespace)
-    list_from_document_tree(document_tree_for(namespace))
+    list_from_document_tree(document_tree_for(namespace), namespace)
   end
 
-  def list_from_document_tree(node, root = true)
+  def list_from_document_tree(node, namespace, root = true)
     ul_options = {}
     ul_options[:class] = 'ml-4' unless root
 
@@ -18,8 +18,8 @@ module NamespaceHelper
         node.collect do |parent, children|
           content_tag(:li) do
             list_content = []
-            list_content << content_tag(:a, parent.title, href: namespace_doc_path(parent.namespace, parent))
-            list_content << list_from_document_tree(children, false) if children.any?
+            list_content << content_tag(:a, parent.title, href: namespace_doc_path(namespace, parent))
+            list_content << list_from_document_tree(children, namespace, false) if children.any?
 
             safe_join(list_content)
           end
@@ -28,21 +28,24 @@ module NamespaceHelper
     end
   end
 
-  def document_tree_options_array_for(namespace)
+  def document_tree_options_array_for(namespace, current_doc)
     options = []
 
-    options_from_document_tree(document_tree_for(namespace), options)
+    options_from_document_tree(document_tree_for(namespace), current_doc, options)
+    options.unshift(['<No Parent>', ''])
 
     options
   end
 
-  def options_from_document_tree(node, options)
+  def options_from_document_tree(node, current_doc, options)
     node.each do |parent, children|
+      next if parent == current_doc
+
       option_text = '-' * parent.depth + " #{parent.title}"
 
       options << [option_text, parent.id]
 
-      options_from_document_tree(children, options)
+      options_from_document_tree(children, current_doc, options)
     end
   end
 end
