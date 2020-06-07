@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Untitled</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'document', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <div class="table w-full h-screen">
+      <div class="table-row">
+        <div class="table-cell bg-black text-gray-500 w-72 p-6">
+          <div class="mb-8">
+            <h2 class="text-sm uppercase font-bold mb-2">Account</h2>
+          </div>
+
+          <div class="mb-8">
+            <h2 class="text-sm uppercase font-bold mb-2">Namespaces</h2>
+
+            <% if current_user.namespaces.any? %>
+              <ul>
+                <% current_user.namespaces.each do |namespace| %>
+                  <li><%= link_to namespace.slug, internal_namespace_settings_path("@#{namespace.slug}") %></li>
+                <% end %>
+              </ul>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="table-cell bg-gray-900 text-gray-200">
+          <div class="document p-6">
+            <%= yield %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -25,6 +25,10 @@ Metrics/MethodLength:
 Style/Documentation:
   Enabled: false
 
+Style/FormatStringToken:
+  Exclude:
+    - config/routes.rb
+
 Style/SymbolArray:
   EnforcedStyle: brackets
   MinSize: 2
