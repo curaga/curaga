@@ -1,7 +1,0 @@
-<% if @docs.any? %>
-<ul>
-<% @docs.each do |doc| %>
-  <li><%= link_to doc.title, edit_document_path(doc) %></li>
-<% end %>
-</ul>
-<% end %>

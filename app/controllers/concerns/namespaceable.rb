@@ -13,7 +13,7 @@ module Namespaceable
   private
 
   def namespace
-    @namespace = Namespace.friendly.find(params[:slug])
+    @namespace = Namespace.friendly.find(params[:slug][1..])
   end
 
   def docs

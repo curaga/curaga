@@ -1,0 +1,27 @@
+<div class="document">
+  <%= form_with(model: [:internal, @namespace, @document]) do |f| %>
+    <header class="flex">
+      <div class="flex-1 mr-2">
+        <%= f.text_field :title, placeholder: 'Title', class: 'form-field__input document__title w-full' %>
+      </div>
+
+      <div class="flex-initial">
+        <%= f.button class: 'btn btn--action' %>
+      </div>
+    </header>
+
+    <div class="form-field form-field--inline">
+      <%= f.label :parent_id, 'Parent', class: 'form-field__label' %>
+      <%= f.select :parent_id, document_tree_options_array_for(@document.namespace, @document), {}, class: 'form-field__input' %>
+    </div>
+
+    <div class="form-field form-field--inline">
+      <%= f.label :position, class: 'form-field__label' %>
+      <%= f.number_field :position, class: 'form-field__input' %>
+    </div>
+
+    <div id="untitled-editor">
+      <%= f.hidden_field :content %>
+    </div>
+  <% end %>
+</div>

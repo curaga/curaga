@@ -2,10 +2,28 @@
   @apply mb-4;
 
   &__input {
-    @apply w-full border border-black bg-black rounded py-2 px-3 leading-tight;
+    @apply border border-black bg-black rounded py-2 px-3 leading-tight;
   }
 
   &__label {
-    @apply block font-medium mb-1;
+    @apply font-medium mr-2;
+  }
+
+  &--inline {
+    @apply inline-block mr-4;
+  }
+
+  &--stacked {
+    @apply block;
+
+    .form-field {
+      &__input {
+        @apply w-full;
+      }
+
+      &__label {
+        @apply block mb-1 mr-0;
+      }
+    }
   }
 }
