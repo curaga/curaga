@@ -13,7 +13,7 @@ module Internal
         @document.namespace = current_user.default_namespace
 
         if @document.save
-          redirect_to namespace_doc_path(@namespace, @document)
+          redirect_to namespace_doc_path(@namespace, @document.slug)
         else
           render action: :new
         end
@@ -23,7 +23,7 @@ module Internal
 
       def update
         if @document.update(document_params)
-          redirect_to namespace_doc_path(@namespace, @document)
+          redirect_to namespace_doc_path(@namespace, @document.slug)
         else
           render action: :edit
         end

@@ -18,7 +18,7 @@ module NamespaceHelper
         node.collect do |parent, children|
           content_tag(:li) do
             list_content = []
-            list_content << content_tag(:a, parent.title, href: namespace_doc_path(namespace, parent))
+            list_content << content_tag(:a, parent.title, href: namespace_doc_path(namespace, parent.slug))
             list_content << list_from_document_tree(children, namespace, false) if children.any?
 
             safe_join(list_content)

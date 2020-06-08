@@ -6,7 +6,7 @@ module Namespaces
     include Pundit
 
     def show
-      @document = @namespace.documents.find(params[:id])
+      @document = @namespace.documents.friendly.find(params[:id])
     end
   end
 end

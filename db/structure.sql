@@ -52,7 +52,8 @@ CREATE TABLE public.documents (
     namespace_id bigint NOT NULL,
     owner_id bigint NOT NULL,
     ancestry character varying,
-    "position" integer DEFAULT 1 NOT NULL
+    "position" integer DEFAULT 1 NOT NULL,
+    slug character varying NOT NULL
 );
 
 
@@ -321,6 +322,13 @@ CREATE INDEX index_documents_on_namespace_id ON public.documents USING btree (na
 
 
 --
+-- Name: index_documents_on_slug_and_namespace_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_documents_on_slug_and_namespace_id ON public.documents USING btree (slug, namespace_id);
+
+
+--
 -- Name: index_friendly_id_slugs_on_slug_and_sluggable_type; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -426,6 +434,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200529210130'),
 ('20200606173736'),
 ('20200607064953'),
-('20200607084037');
+('20200607084037'),
+('20200608142828');
 
 
