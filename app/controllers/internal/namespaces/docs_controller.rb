@@ -37,7 +37,7 @@ module Internal
       private
 
       def document_params
-        params.require(:document).permit(:title, :content, :parent_id, :position)
+        params.require(:document).permit(:title, :content, :parent_id, :position, :editable_slug)
       end
 
       def document

@@ -10,14 +10,31 @@ class Document < ApplicationRecord
   belongs_to :namespace
   belongs_to :owner, class_name: 'User'
 
+  def editable_slug
+    @editable_slug || slug&.split('/')&.last
+  end
+
+  def editable_slug=(value)
+    attribute_will_change!('editable_slug') if editable_slug != value
+    @editable_slug = value
+  end
+
+  def editable_slug_changed?
+    changed.include?('editable_slug')
+  end
+
   def generate_slug
-    slugified_title = title.parameterize
+    slugified_title = (editable_slug.presence || title).parameterize
     slugified_title.prepend("#{parent.slug}/") if parent.present?
     slugified_title
   end
 
   def normalize_friendly_id(string)
     string
+  end
+
+  def should_generate_new_friendly_id?
+    editable_slug.blank? || super
   end
 
   def to_param
