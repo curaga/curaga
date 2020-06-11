@@ -150,7 +150,8 @@ CREATE TABLE public.namespaces (
     id bigint NOT NULL,
     slug character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    default_doc_id bigint
 );
 
 
@@ -409,6 +410,14 @@ ALTER TABLE ONLY public.namespace_memberships
 
 
 --
+-- Name: namespaces fk_rails_95519d343c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.namespaces
+    ADD CONSTRAINT fk_rails_95519d343c FOREIGN KEY (default_doc_id) REFERENCES public.documents(id);
+
+
+--
 -- Name: documents fk_rails_d57828d9bc; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -435,6 +444,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200606173736'),
 ('20200607064953'),
 ('20200607084037'),
-('20200608142828');
+('20200608142828'),
+('20200611181115');
 
 

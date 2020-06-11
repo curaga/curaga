@@ -28,11 +28,16 @@ module NamespaceHelper
     end
   end
 
-  def document_tree_options_array_for(namespace, current_doc)
+  def document_tree_options_array_for(namespace, current_doc = nil, params = {})
     options = []
 
     options_from_document_tree(document_tree_for(namespace), current_doc, options)
-    options.unshift(['<No Parent>', ''])
+
+    if params[:include_blank]
+      blank_text = params[:include_blank].is_a?(String) ? params[:include_blank] : '<No Parent>'
+
+      options.unshift([blank_text, ''])
+    end
 
     options
   end
