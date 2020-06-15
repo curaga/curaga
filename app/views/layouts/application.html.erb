@@ -7,17 +7,24 @@
 
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'editor', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'document', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body class="bg-black">
-    <% if current_user %>
-    <div class="p-6 text-xs text-right">
-      <%= link_to 'Log out', destroy_user_session_path, method: :delete, class: 'btn' %>
-    </div>
-    <% end %>
+  <body>
+    <div class="table w-full h-screen">
+      <div class="table-row">
+        <div class="table-cell bg-black text-gray-500 w-72 p-6">
+          <h2 class="text-sm uppercase font-bold mb-2">Documents</h2>
 
-    <%= yield %>
+          <%= document_tree_list_for(@namespace) %>
+        </div>
+
+        <div class="table-cell bg-gray-900 text-gray-200">
+          <div class="document p-6">
+            <%= yield %>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

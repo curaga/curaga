@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  root to: 'static#index'
-
   # Internal routes
   scope path: '-' do
     devise_for :users
@@ -21,4 +19,8 @@ Rails.application.routes.draw do
   scope path: ':slug', module: :namespaces, constraints: { slug: /@[a-zA-Z0-9_]+/ } do
     get '*id', to: 'docs#show', as: :namespace_doc
   end
+
+  # Root routes
+  root to: 'root#index'
+  get '*id', to: 'root#show', as: :root_doc
 end
