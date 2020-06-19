@@ -2,10 +2,13 @@
 
 class NamespacesController < ApplicationController
   include Namespaceable
+  include Pundit
 
   def show
-    if @namespace.default_doc
-      redirect_to namespace_doc_path(@namespace, @namespace.default_doc.slug)
+    return redirect_to root_url if @namespace.id.to_s == ENV.fetch('DEFAULT_NAMESPACE_ID')
+
+    if @document = @namespace.default_doc
+      render 'namespaces/docs/show'
     else
       redirect_to namespace_doc_path(@namespace, @namespace.documents.order(Arel.sql('RANDOM()')).first.slug)
     end

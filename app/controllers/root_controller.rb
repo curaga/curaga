@@ -5,8 +5,8 @@ class RootController < ApplicationController
   include Pundit
 
   def index
-    if @namespace.default_doc
-      redirect_to root_doc_path(@namespace.default_doc.slug)
+    if @document = @namespace.default_doc
+      render 'namespaces/docs/show'
     else
       redirect_to root_doc_path(@namespace.documents.order(Arel.sql('RANDOM()')).first.slug)
     end
