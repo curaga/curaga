@@ -16,7 +16,7 @@ module Internal
       private
 
       def namespace_params
-        params.require(:namespace).permit(:default_doc_id)
+        params.require(:namespace).permit(:default_doc_id, :title)
       end
     end
   end

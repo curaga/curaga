@@ -14,7 +14,9 @@
     <div class="table w-full h-screen">
       <div class="table-row">
         <div class="table-cell bg-black text-gray-500 w-72 p-6">
-          <h2 class="text-sm uppercase font-bold mb-2">Documents</h2>
+          <h2 class="text-xl uppercase font-bold mb-2">
+            <%= @namespace.title %>
+          </h2>
 
           <%= document_tree_list_for(@namespace) %>
         </div>

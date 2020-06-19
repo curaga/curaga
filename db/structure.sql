@@ -151,7 +151,8 @@ CREATE TABLE public.namespaces (
     slug character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    default_doc_id bigint
+    default_doc_id bigint,
+    title text
 );
 
 
@@ -445,6 +446,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200607064953'),
 ('20200607084037'),
 ('20200608142828'),
-('20200611181115');
+('20200611181115'),
+('20200619071851');
 
 
