@@ -14,6 +14,9 @@ class RootController < ApplicationController
 
   def show
     @document = @namespace.documents.friendly.find(params[:id])
+
+    return redirect_to root_url if @namespace.default_doc_id == @document.id
+
     render 'namespaces/docs/show'
   end
 
