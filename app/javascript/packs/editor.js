@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => loadEditor());
 document.addEventListener('turbolinks:load', () => loadEditor());
 
 function loadEditor() {
-  const el = document.querySelector('#untitled-editor');
+  const el = document.querySelector('#curaga-editor');
 
   if(typeof(el) != 'undefined' && el != null) {
     const doc = el.querySelector('input[type=hidden]').value || '{"doc": {"type":"doc"}}';

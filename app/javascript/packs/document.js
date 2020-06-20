@@ -4,13 +4,13 @@ document.addEventListener('DOMContentLoaded', () => loadDocument());
 document.addEventListener('turbolinks:load', () => loadDocument());
 
 function loadDocument() {
-  const el = document.querySelector('#untitled-document');
+  const el = document.querySelector('#curaga-document');
 
   if(typeof(el) != 'undefined' && el != null) {
     const doc = el.dataset.doc;
     delete el.dataset.doc;
 
-    const untitledDoc = new Document({
+    const curagaDoc = new Document({
       target: el,
       hydrate: true,
       props: {
@@ -18,6 +18,6 @@ function loadDocument() {
       },
     });
 
-    window.untitledDoc = untitledDoc;
+    window.curagaDoc = curagaDoc;
   }
 }
