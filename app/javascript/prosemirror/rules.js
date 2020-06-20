@@ -2,10 +2,19 @@ import { inputRules, textblockTypeInputRule, wrappingInputRule } from 'prosemirr
 import schema from './schema';
 
 export default inputRules({ rules: [
+  blockQuoteRule(schema.nodes.blockquote),
   bulletListRule(schema.nodes.bullet_list),
   codeBlockRule(schema.nodes.code_block),
   orderedListRule(schema.nodes.ordered_list),
+  headingRule(schema.nodes.heading, 6),
 ]})
+
+// : (NodeType) → InputRule
+// Given a blockquote node type, returns an input rule that turns `"> "`
+// at the start of a textblock into a blockquote.
+export function blockQuoteRule(nodeType) {
+  return wrappingInputRule(/^\s*>\s$/, nodeType)
+}
 
 // : (NodeType) → InputRule
 // Given a code block node type, returns an input rule that turns a
@@ -28,4 +37,14 @@ export function orderedListRule(nodeType) {
 // bullet list.
 export function bulletListRule(nodeType) {
   return wrappingInputRule(/^\s*([-+*])\s$/, nodeType);
+}
+
+// : (NodeType, number) → InputRule
+// Given a node type and a maximum level, creates an input rule that
+// turns up to that number of `#` characters followed by a space at
+// the start of a textblock into a heading whose level corresponds to
+// the number of `#` signs.
+export function headingRule(nodeType, maxLevel) {
+  return textblockTypeInputRule(new RegExp('^(#{2,' + maxLevel + '})\\s$'),
+                                nodeType, match => ({level: match[1].length}))
 }
