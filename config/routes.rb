@@ -15,8 +15,8 @@ Rails.application.routes.draw do
   end
 
   # Namespace routes
-  get ':slug', to: 'namespaces#show', as: :namespace, constraints: { slug: /@[a-zA-Z0-9_]+/ }
   scope path: ':slug', module: :namespaces, constraints: { slug: /@[a-zA-Z0-9_]+/ } do
+    get '/', to: 'docs#index', as: :namespace
     get '*id', to: 'docs#show', as: :namespace_doc
   end
 

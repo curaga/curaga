@@ -2,14 +2,11 @@
 
 class RootController < ApplicationController
   include Namespaceable
-  include Pundit
 
   def index
-    if @document = @namespace.default_doc
-      render 'namespaces/docs/show'
-    else
-      redirect_to root_doc_path(@namespace.documents.order(Arel.sql('RANDOM()')).first.slug)
-    end
+    return render_doc_template if (@document = @namespace.default_doc)
+
+    redirect_to root_doc_path(@namespace.documents.order(Arel.sql('RANDOM()')).first.slug)
   end
 
   def show
@@ -17,12 +14,16 @@ class RootController < ApplicationController
 
     return redirect_to root_url if @namespace.default_doc_id == @document.id
 
-    render 'namespaces/docs/show'
+    render_doc_template
   end
 
   private
 
   def namespace
-    @namespace = Namespace.find(ENV.fetch('DEFAULT_NAMESPACE_ID'))
+    @namespace = Namespace.find(ENV['DEFAULT_NAMESPACE_ID'])
+  end
+
+  def render_doc_template
+    render 'namespaces/docs/show'
   end
 end

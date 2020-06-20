@@ -4,6 +4,8 @@ module Namespaceable
   extend ActiveSupport::Concern
 
   included do
+    include Pundit
+
     before_action :namespace
   end
 
