@@ -9,9 +9,7 @@ export let linkPaste = new Plugin({
       const { state, dispatch } = view;
 
       if (isUrl(text) && !state.selection.empty) {
-        const href = slice.content.content[0].text;
-
-        toggleMark(schema.marks.link, { href })(
+        toggleMark(schema.marks.link, { href: text })(
           state,
           dispatch,
         );
