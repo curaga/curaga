@@ -4,6 +4,7 @@ import { baseKeymap } from 'prosemirror-commands';
 import { buildKeymap } from './keymap';
 import schema from './schema';
 import inputRules from './rules';
+import { linkPaste } from './plugins/linkPaste';
 
 export let state = EditorState.create({
   schema,
@@ -11,5 +12,6 @@ export let state = EditorState.create({
     inputRules,
     keymap(buildKeymap(schema)),
     keymap(baseKeymap),
+    linkPaste,
   ],
 });
