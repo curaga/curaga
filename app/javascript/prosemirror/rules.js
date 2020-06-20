@@ -1,4 +1,4 @@
-import { inputRules, textblockTypeInputRule, wrappingInputRule } from 'prosemirror-inputrules';
+import { inputRules, textblockTypeInputRule, wrappingInputRule, emDash, ellipsis } from 'prosemirror-inputrules';
 import schema from './schema';
 
 export default inputRules({ rules: [
@@ -7,6 +7,8 @@ export default inputRules({ rules: [
   codeBlockRule(schema.nodes.code_block),
   orderedListRule(schema.nodes.ordered_list),
   headingRule(schema.nodes.heading, 6),
+  emDash,
+  ellipsis,
 ]})
 
 // : (NodeType) → InputRule
