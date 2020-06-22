@@ -12,12 +12,15 @@ jobs:
       postgres:
         image: postgres:11
         env:
+          POSTGRES_USER: curaga
           POSTGRES_PASSWORD: postgres
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+        ports:
+          - 5432:5432
 
     env:
       RAILS_ENV: test
@@ -41,7 +44,7 @@ jobs:
       - name: Install Node.js dependencies
         run: yarn install
 
-      - name: Configure database.yml
+      - name: Copy database.yml
         run: cp .github/workflows/config/database.yml config/database.yml
 
       - name: Set up test database
