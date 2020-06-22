@@ -42,7 +42,7 @@ jobs:
         run: cp .github/workflows/config/database.yml config/database.yml
 
       - name: Set up test database
-        run: bin/rails db:setup
+        run: bin/rails db:test:prepare
 
       - name: Run tests
         run: bin/rake
