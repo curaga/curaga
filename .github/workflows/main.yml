@@ -1,3 +1,4 @@
+name: Verify
 on:
   push:
     branches: [ master ]
@@ -5,6 +6,26 @@ on:
     branches: [ master ]
 
 jobs:
+  linters:
+    name: Linters
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Ruby environment
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.6
+          bundler-cache: true
+
+      - name: Install Ruby dependencies
+        run: bundle install
+
+      - name: Run tests
+        run: bin/rubocop
+
   tests:
     name: Tests
     runs-on: ubuntu-latest
