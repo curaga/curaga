@@ -1,0 +1,7 @@
+test:
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  host: postgres
+  password: postgres
+  database: curaga_test
