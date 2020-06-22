@@ -11,9 +11,9 @@ module Users
         user = User.create(@user_params)
         namespace = Namespace.create(slug: user.username)
         NamespaceMembership.create(user: user, namespace: namespace, default: true)
-      end
 
-      user
+        user
+      end
     end
   end
 end
