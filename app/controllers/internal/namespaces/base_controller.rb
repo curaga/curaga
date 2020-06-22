@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Internal
   module Namespaces
     class BaseController < ::Internal::BaseController

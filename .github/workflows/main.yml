@@ -1,0 +1,75 @@
+name: Verify
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  linters:
+    name: Linters
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Ruby environment
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.6
+          bundler-cache: true
+
+      - name: Install Ruby dependencies
+        run: bundle install
+
+      - name: Run tests
+        run: bin/rubocop
+
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:11
+        env:
+          POSTGRES_USER: curaga
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    env:
+      RAILS_ENV: test
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Ruby environment
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.6
+          bundler-cache: true
+
+      - name: Set up Node.js environment
+        uses: actions/setup-node@v1.4.2
+
+      - name: Install Ruby dependencies
+        run: bundle install
+
+      - name: Install Node.js dependencies
+        run: yarn install
+
+      - name: Copy database.yml
+        run: cp .github/workflows/config/database.yml config/database.yml
+
+      - name: Set up test database
+        run: bin/rails db:test:prepare
+
+      - name: Run tests
+        run: bin/rake
