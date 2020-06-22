@@ -23,14 +23,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Ruby
+      - name: Set up Ruby environment
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: 2.6
           bundler-cache: true
 
-      - name: Install dependencies
+      - name: Set up Node.js environment
+        uses: actions/setup-node@v1.4.2
+
+      - name: Install Ruby dependencies
         run: bundle install
+
+      - name: Install Node.js dependencies
+        run: yarn install
 
       - name: Configure database.yml
         run: cp .github/workflows/config/database.yml config/database.yml
