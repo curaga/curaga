@@ -1,6 +1,5 @@
 import Document from '../document.svelte'
 
-document.addEventListener('DOMContentLoaded', () => loadDocument());
 document.addEventListener('turbolinks:load', () => loadDocument());
 
 function loadDocument() {

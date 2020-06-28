@@ -2,7 +2,7 @@
   import { onMount, onDestroy } from 'svelte';
   import { EditorView } from 'prosemirror-view';
   import { state } from 'prosemirror/state';
-  import 'prosemirror-view/style/prosemirror.css';
+  import '!style-loader!css-loader!prosemirror-view/style/prosemirror.css';
 
   export let doc;
   $: {
