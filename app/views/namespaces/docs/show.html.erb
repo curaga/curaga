@@ -1,18 +1,20 @@
 <% page_title(@document.title, @namespace.title) %>
 
-<div class="document">
-  <header>
-    <div class="float-right">
-      <% if policy(@document).update? %>
-        <%= link_to 'Edit', edit_internal_namespace_document_path(@namespace, @document.id), class: 'btn btn--action' %>
-      <% end %>
+<div class="w-192 mx-auto">
+  <div class="document">
+    <header>
+      <div class="float-right">
+        <% if policy(@document).update? %>
+          <%= link_to 'Edit', edit_internal_namespace_document_path(@namespace, @document.id), class: 'btn btn--action' %>
+        <% end %>
+      </div>
+
+      <h1 class="document__title">
+        <%= @document.title %>
+      </h1>
+    </header>
+
+    <div id="curaga-document" data-doc="<%= @document.content %>">
     </div>
-
-    <h1 class="document__title">
-      <%= @document.title %>
-    </h1>
-  </header>
-
-  <div id="curaga-document" data-doc="<%= @document.content %>">
   </div>
 </div>
