@@ -1,4 +1,4 @@
-import { inputRules, textblockTypeInputRule, wrappingInputRule, emDash, ellipsis } from 'prosemirror-inputrules';
+import { inputRules, textblockTypeInputRule, wrappingInputRule, emDash, ellipsis, InputRule } from 'prosemirror-inputrules';
 import schema from './schema';
 
 export default inputRules({ rules: [
@@ -7,6 +7,7 @@ export default inputRules({ rules: [
   codeBlockRule(schema.nodes.code_block),
   orderedListRule(schema.nodes.ordered_list),
   headingRule(schema.nodes.heading, 6),
+  insertImageWithMarkdown(),
   emDash,
   ellipsis,
 ]})
@@ -49,4 +50,18 @@ export function bulletListRule(nodeType) {
 export function headingRule(nodeType, maxLevel) {
   return textblockTypeInputRule(new RegExp('^(#{2,' + maxLevel + '})\\s$'),
                                 nodeType, match => ({level: match[1].length}))
+}
+
+export function insertImageWithMarkdown() {
+  return new InputRule(
+    /^\!\[.*\]\(.+\)$/,
+    function(state, match, start, end) {
+      const { tr } = state;
+      const [alt, src] = match[0].substring(2, match[0].length - 1).split('](');
+
+      tr.replaceWith(start, end, schema.nodes.image.create({ alt, src }));
+
+      return tr;
+    },
+  );
 }
