@@ -1,6 +1,5 @@
 import Editor from '../editor.svelte'
 
-document.addEventListener('DOMContentLoaded', () => loadEditor());
 document.addEventListener('turbolinks:load', () => loadEditor());
 
 function loadEditor() {
