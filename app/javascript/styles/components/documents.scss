@@ -5,16 +5,20 @@
       @apply mb-4;
     }
 
-    // Headings
-    h2, h3, h4, h5, h6 {
-      @apply mb-4 font-bold;
+    blockquote {
+      @apply my-8;
     }
 
-    h2 { @apply text-2xl; }
-    h3 { @apply text-xl; }
-    h4 { @apply text-lg; }
+    // Headings
+    h2, h3, h4, h5, h6 {
+      @apply mb-4 font-semibold;
+    }
+
+    h2 { @apply text-3xl; }
+    h3 { @apply text-2xl; }
+    h4 { @apply text-xl; }
     h5 { @apply text-lg; }
-    h6 { @apply text-lg; }
+    h6 { @apply text-lg font-medium; }
 
     // Links
     a:link, a:visited {
@@ -42,6 +46,18 @@
   }
 
   &__title {
-    @apply text-3xl mb-4;
+    @apply text-4xl mb-4 font-bold;
+  }
+}
+
+// Form specific styles
+
+.document {
+  &__title.form-field__input {
+    @apply bg-transparent p-0 border-0 border-b border-gray-700 outline-none;
+  }
+
+  .ProseMirror {
+    @apply outline-none;
   }
 }
