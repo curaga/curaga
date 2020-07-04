@@ -2,6 +2,8 @@
 <html>
   <head>
     <title><%= page_title %></title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -10,18 +12,26 @@
     <%= javascript_pack_tag 'document', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <div class="table w-full h-screen">
-      <div class="table-row">
-        <div class="table-cell bg-black text-gray-500 w-72 p-6">
-          <h2 class="text-xl uppercase font-bold mb-2">
-            <%= @namespace.title %>
-          </h2>
+  <body class="bg-gray-900">
+    <div class="sm:table sm:h-screen sm:w-full">
+      <div class="sm:table-row">
+        <div class="fixed w-full sm:static sm:table-cell sm:w-72 bg-black text-gray-500 p-3 sm:p-6">
+          <div class="flex">
+            <h2 class="text-xl uppercase font-bold sm:mb-2 flex-auto">
+              <%= @namespace.title %>
+            </h2>
 
-          <%= document_tree_list_for(@namespace) %>
+            <button class="flex-shrink uppercase sm:hidden btn p-0 px-1 js__namespace-menu-btn">
+              Menu
+            </button>
+          </div>
+
+          <div class="hidden sm:block js__namespace-menu">
+            <%= document_tree_list_for(@namespace) %>
+          </div>
         </div>
 
-        <div class="table-cell bg-gray-900 text-gray-200 p-6">
+        <div class="sm:table-cell bg-gray-900 text-gray-200 pt-20 p-6 sm:pt-6">
           <%= yield %>
         </div>
       </div>
