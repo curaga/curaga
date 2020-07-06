@@ -19,13 +19,7 @@ module NamespaceHelper
           content_tag(:li) do
             list_content = []
 
-            document_href = if controller_name == 'root'
-                              root_doc_path(parent.slug)
-                            else
-                              namespace_doc_path(namespace, parent.slug)
-                            end
-
-            list_content << content_tag(:a, parent.title, href: document_href)
+            list_content << content_tag(:a, parent.title, href: path_for_document(parent))
             list_content << list_from_document_tree(children, namespace, false) if children.any?
 
             safe_join(list_content)
