@@ -45,6 +45,7 @@ jobs:
 
     env:
       RAILS_ENV: test
+      DATABASE_URL: postgresql://curaga:postgres@localhost/curaga_test?pool=5
 
     steps:
       - name: Checkout code
@@ -64,9 +65,6 @@ jobs:
 
       - name: Install Node.js dependencies
         run: yarn install
-
-      - name: Copy database.yml
-        run: cp .github/workflows/config/database.yml config/database.yml
 
       - name: Set up test database
         run: bin/rails db:test:prepare
