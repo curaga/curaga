@@ -15,3 +15,6 @@
 # Ignore uploaded files in development.
 /public/assets
 /public/packs
+
+# Ignore vendor files
+/vendor/bundle
