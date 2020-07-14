@@ -9,10 +9,7 @@ export let linkPaste = new Plugin({
       const { state, dispatch } = view;
 
       if (isUrl(text) && !state.selection.empty) {
-        toggleMark(schema.marks.link, { href: text })(
-          state,
-          dispatch,
-        );
+        toggleMark(schema.marks.link, { href: text })(state, dispatch);
 
         return true;
       }
@@ -24,7 +21,7 @@ function isUrl(text) {
   try {
     new URL(text);
     return true;
-  } catch(err) {
+  } catch (err) {
     return false;
   }
 }
