@@ -1,4 +1,9 @@
-# Ignore simplecov generated report
+# Don't check the following filetypes.
+*.html
+*.md
+*.scss
+
+# Ignore simplecov generated report.
 /coverage
 
 # Ignore all logfiles and tempfiles.
